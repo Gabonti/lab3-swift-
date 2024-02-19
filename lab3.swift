@@ -1,5 +1,7 @@
 import Foundation
 
+
+//Exercise 1
 // Student structure
 struct Student {
     var firstName: String
@@ -77,3 +79,77 @@ print("Average score of all students: \(averageScore)")
 if let highestGPAStudent = journal.findStudentWithHighestGPA() {
     print("Student with the highest GPA: \(highestGPAStudent.firstName) \(highestGPAStudent.lastName), GPA: \(highestGPAStudent.averageGrade)")
 }
+
+
+//Exercise 2
+import Foundation
+
+struct Task {
+    var title: String
+    var description: String
+    var isCompleted: Bool = false
+}
+
+struct ToDoList {
+    var tasks: [Task] = []
+
+    mutating func addTask(title: String, description: String) {
+        let newTask = Task(title: title, description: description)
+        tasks.append(newTask)
+    }
+
+    mutating func removeTask(byName name: String) {
+        tasks.removeAll { $0.title == name }
+    }
+
+    mutating func changeTaskStatus(byName name: String, isCompleted: Bool) {
+        if let index = tasks.firstIndex(where: { $0.title == name }) {
+            tasks[index].isCompleted = isCompleted
+        }
+    }
+
+    func displayAllTasks() {
+        print("All Tasks:")
+        for task in tasks {
+            print("\(task.title) - \(task.description) (\(task.isCompleted ? "Completed" : "Not Completed"))")
+        }
+    }
+
+    func displayCompletedTasks() {
+        let completedTasks = tasks.filter { $0.isCompleted }
+        print("Completed Tasks:")
+        for task in completedTasks {
+            print("\(task.title) - \(task.description)")
+        }
+    }
+
+    func displayOutstandingTasks() {
+        let outstandingTasks = tasks.filter { !$0.isCompleted }
+        print("Outstanding Tasks:")
+        for task in outstandingTasks {
+            print("\(task.title) - \(task.description)")
+        }
+    }
+
+    mutating func clearCompletedTasks() {
+        tasks.removeAll { $0.isCompleted }
+    }
+}
+
+// Example Usage:
+var myToDoList = ToDoList()
+
+myToDoList.addTask(title: "Task 1", description: "Description for Task 1")
+myToDoList.addTask(title: "Task 2", description: "Description for Task 2")
+myToDoList.addTask(title: "Task 3", description: "Description for Task 3")
+
+myToDoList.changeTaskStatus(byName: "Task 2", isCompleted: true)
+
+myToDoList.displayAllTasks()
+myToDoList.displayCompletedTasks()
+myToDoList.displayOutstandingTasks()
+
+myToDoList.clearCompletedTasks()
+
+myToDoList.displayAllTasks()
+
