@@ -106,6 +106,9 @@ struct ToDoList {
         if let index = tasks.firstIndex(where: { $0.title == name }) {
             tasks[index].isCompleted = isCompleted
         }
+        else {
+            print("Task hasn't found")
+        }
     }
 
     func displayAllTasks() {
